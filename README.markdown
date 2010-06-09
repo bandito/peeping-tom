@@ -3,13 +3,7 @@ Installing
 
 Debian, Ubuntu: 
 
-    sudo aptitude install xvfb xfonts-base xfonts-75dpi xfonts-100dpi imagemagick ttf-mscorefonts-installer python-qt4 python-qt4 python-pip build-essential python-setuptools flashplugin-installer ruby ruby1.8-dev irb rdoc redis-server git-core
-
-    wget http://production.cf.rubygems.org/rubygems/rubygems-1.3.7.tgz
-    tar -zxvf rubygems-1.3.7.tgz
-    cd rubygems-1.3.7
-    sudo ruby setup.rb
-    sudo ln -s /usr/bin/gem1.8 /usr/bin/gem
+    sudo aptitude install xvfb xfonts-base xfonts-75dpi xfonts-100dpi imagemagick ttf-mscorefonts-installer python-qt4 python-qt4 python-pip build-essential python-setuptools flashplugin-installer ruby ruby1.8-dev irb rdoc redis-server git-core rubygems
 
     sudo gem install sinatra json redis resque
 

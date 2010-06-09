@@ -26,7 +26,7 @@ class Peep
     print_screen(@url, @full_filename)
     cb = @options[:callback]
     if cb && cb.length > 0 && File.exists?(@full_filename)
-      params = [[:id, id], [:location , @full_filename]].collect{|a| "#{a.first}=#{CGI::escape(a.last)}"}.join("&")
+      params = [[:id, @uid], [:location , @full_filename]].collect{|a| "#{a.first}=#{CGI::escape(a.last)}"}.join("&")
       fcb = cb =~ /\?/ ? (cb + "&" + params) : (cb + "?" + params)
       open(fcb){|f| }
     end
