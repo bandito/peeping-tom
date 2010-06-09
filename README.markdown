@@ -3,9 +3,10 @@ Installing
 
 Debian, Ubuntu: 
 
-    sudo aptitude install xvfb xfonts-base xfonts-75dpi xfonts-100dpi imagemagick ttf-mscorefonts-installer python-qt4 python-qt4 python-pip build-essential python-setuptools flashplugin-installer ruby ruby1.8-dev irb rdoc redis-server git-core rubygems
+    sudo aptitude install xvfb xfonts-base xfonts-75dpi xfonts-100dpi imagemagick ttf-mscorefonts-installer python-qt4 python-qt4 python-pip build-essential python-setuptools flashplugin-installer ruby ruby1.8-dev irb rdoc redis-server git-core rubygems rake
 
-    sudo gem install sinatra json redis resque
+    sudo gem install sinatra json resque
+    sudo gem install redis -v "1.0.7"
 
     wget http://github.com/AdamN/python-webkit2png/raw/master/webkit2png.py
     sudo cp webkit2png.py /usr/bin/
@@ -13,6 +14,8 @@ Debian, Ubuntu:
 
     git clone git://github.com/bandito/peeping-tom.git
 
+
+The redis 2.0 driver doesn't currently work with resque (http://github.com/defunkt/resque/issues/110)
 
 Usage
 ========

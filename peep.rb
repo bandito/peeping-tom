@@ -14,7 +14,7 @@ class Peep
   def initialize(uid, url, options = {})
     @uid, @url = uid, url
     @folder = Peep.folder_from_uid(@uid)
-    @options = {:wait => 1}.merge(options)
+    @options = {"wait" => 1}.merge(options)
     @filename = "/shots/#{@folder}/#{@uid}.png"
     @full_filename = File.join("public", @filename)
   end
@@ -24,17 +24,17 @@ class Peep
     FileUtils.mkdir_p(File.join("public", "shots", @folder))
 
     print_screen(@url, @full_filename)
-    cb = @options[:callback]
+    cb = @options["callback"]
     if cb && cb.length > 0 && File.exists?(@full_filename)
       params = [[:id, @uid], [:location , @full_filename]].collect{|a| "#{a.first}=#{CGI::escape(a.last)}"}.join("&")
       fcb = cb =~ /\?/ ? (cb + "&" + params) : (cb + "?" + params)
-      open(fcb){|f| }
+      f = open(fcb); f.close
     end
 
   end
 
   def print_screen(url, filename)
-    `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options[:wait]} -F javascript -F plugins`
+    `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} -F javascript -F plugins`
   end
 
   def self.uid(url)
