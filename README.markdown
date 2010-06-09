@@ -19,10 +19,13 @@ The redis 2.0 driver doesn't currently work with resque (http://github.com/defun
 
 Usage
 ========
-
-    ruby server.rb
+    #add a sample
+    #ruby sample.rb
     QUEUE=* rake resque:work
     rescue-web #optional
+    
+    #run the webserver
+    ruby server.rb
 
     wget http://localhost:4567/schedule?url=http://www.skroutz.gr&callback=http://www.mysite.com/handle_screenshot
 
