@@ -62,6 +62,6 @@ class Peep
     folder = Peep.folder_from_uid(uid)
 
     Resque.enqueue Peep, uid, url, params.reject{|k,v| %w(url).include?(k.to_s)}
-    {:url => url, :callback => cb, :jobid => uid, :location => "/shots/#{folder}/#{uid}.png"}.to_json
+    {:url => url, :callback => params[:callback], :jobid => uid, :location => "/shots/#{folder}/#{uid}.png"}.to_json
   end
 end
