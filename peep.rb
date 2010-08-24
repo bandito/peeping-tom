@@ -34,7 +34,11 @@ class Peep
   end
 
   def print_screen(url, filename)
-    `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} -F javascript -F plugins`
+     extra = "-F javascript -F plugins"
+     extra << " --clipwidth=#{@options["width"]}" if @options["width"]
+     extra << " --clipheight=#{@options["height"]}" if @options["height"]
+
+    `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} #{extra}`
   end
 
   def self.uid(url)
@@ -52,13 +56,12 @@ class Peep
 
   def self.queue_url(params)
     url = params[:url]
-    cb = params[:callback]
 
     #get a unique hash for this job
     uid = Peep.uid(url)
     folder = Peep.folder_from_uid(uid)
 
-    Resque.enqueue Peep, uid, url, {:callback => cb}
+    Resque.enqueue Peep, uid, url, params.reject{|k,v| %w(url).include?(k.to_s)}
     {:url => url, :callback => cb, :jobid => uid, :location => "/shots/#{folder}/#{uid}.png"}.to_json
   end
 end
