@@ -35,8 +35,9 @@ class Peep
 
   def print_screen(url, filename)
      extra = "-F javascript -F plugins"
-     extra << " --clipwidth=#{@options["width"]}" if @options["width"]
-     extra << " --clipheight=#{@options["height"]}" if @options["height"]
+     if @options["width"]
+        extra << " --scale=#{@options["width"]} #{@options["height"]} --aspect-ratio=crop"
+     end
 
     `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} #{extra}`
   end
