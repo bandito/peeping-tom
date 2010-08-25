@@ -6,6 +6,7 @@ require 'open-uri'
 require 'digest'
 require 'resque'
 require 'json'
+require 'timeout'
 
 class Peep
 
@@ -24,6 +25,9 @@ class Peep
     FileUtils.mkdir_p(File.join("public", "shots", @folder))
 
     print_screen(@url, @full_filename)
+
+    raise if !File.exists?(@full_filename)
+
     cb = @options["callback"]
     if cb && cb.length > 0 && File.exists?(@full_filename)
       params = [[:id, @uid], [:location , @filename]].collect{|a| "#{a.first}=#{CGI::escape(a.last)}"}.join("&")
@@ -39,7 +43,9 @@ class Peep
         extra << " --scale=#{@options["width"]} #{@options["height"]} --aspect-ratio=crop"
      end
 
-    `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} #{extra}`
+     Timeout::timeout(30) do 
+      `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} #{extra}`
+     end
   end
 
   def self.uid(url)
