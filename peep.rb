@@ -44,8 +44,11 @@ class Peep
      end
 
      Timeout::timeout(30) do 
-      `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} "#{url}" -w #{@options["wait"]} #{extra}`
+      `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} -t 20 "#{url}" -w #{@options["wait"]} #{extra}`
      end
+
+      rescue  Timeout::Error
+      `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} -t 20 "#{url}" -w #{@options["wait"]} #{extra.gsub(/-F\s*plugins/, '')}`
   end
 
   def self.uid(url)
