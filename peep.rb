@@ -38,6 +38,8 @@ class Peep
   end
 
   def print_screen(url, filename)
+
+     puts "Priting screen"
      extra = "-F javascript -F plugins"
      if @options["width"]
         extra << " --scale=#{@options["width"]} #{@options["height"]} --aspect-ratio=crop"
@@ -47,7 +49,10 @@ class Peep
       `xvfb-run --server-args="-screen 0, 1024x768x24" webkit2png.py -o #{filename} -t 20 "#{url}" -w #{@options["wait"]} #{extra}`
      end
 
+     puts "Done"
+
       rescue  Timeout::Error
+      puts "Errored, killing and moving on"
        `killall Xvfb`
        `killall xvfb-run`
   end
