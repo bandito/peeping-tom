@@ -33,6 +33,6 @@ The last statement will return a json string with the uid of the job and the loc
 
     {"url":"http://www.skroutz.gr","location":"/shots/127603/815c9bbfcea40f3afee068d398d95c3a-1276037080.png","jobid":"815c9bbfcea40f3afee068d398d95c3a-1276037080","callback":null}
 
-When the screenshot is taken you will recieve a callback with the screenshots location as a parameter (as well as the id).
+When the screenshot is taken you will receive a callback with the screenshots location as a parameter (as well as the id).
 
     http://www.mysite.com/handle_screenshot?uid=XXXXXXXXXXXXXXXX&location=XXXXXXXXXXXXXXXXX
